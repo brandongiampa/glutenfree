@@ -8,15 +8,16 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-<?php print_r( $social_links ); ?>
-<header>
+<header class="<?php glfr_make_header_class(); ?>">
     <div class="bg-dark">
         <div class="container header-top d-flex flex-row bg-dark justify-content-center align-items-center position-relative p-2">
             <?php get_template_part( 'template-parts/social-nav' ); ?>
             <?php 
+                //large logo for home page
                 if ( is_front_page() || is_home()  ) {
                     get_template_part( 'template-parts/branding-large' );
                 }
+                //regular logo for others
                 else {
                     get_template_part( 'template-parts/branding' );
                 }
@@ -29,24 +30,15 @@
             <?php get_template_part( 'template-parts/social-nav-mobile' ); ?>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <?php
-        wp_nav_menu( array(
-            'theme_location'  => 'primary',
-            'depth'           => 2, // 1 = no dropdowns, 2 = with dropdowns.
-            'container'       => 'div',
-            'container_class' => 'collapse navbar-collapse justify-content-lg-center',
-            'container_id'    => 'navbarsExample08',
-            'menu_class'      => 'navbar-nav m-auto',
-            'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
-            'walker'          => new WP_Bootstrap_Navwalker(),
-        ) );
-        ?>
-    </nav>
-    <div class="searchbar-mobile d-lg-none p-4 d-flex justify-content-center align-items-center">
+    <?php get_template_part( 'template-parts/nav-menu' ); ?>
+    <?php 
+        $nav_mobile_class = "searchbar-mobile d-flex d-lg-none p-4 justify-content-center align-items-center"; 
+        
+        if ( !is_front_page() ) {
+            $nav_mobile_class .= " mb-3";
+        }
+    ?>
+    <div class="<?php echo $nav_mobile_class; ?>">
         <?php get_search_form(); ?>
     </div>
 </header>

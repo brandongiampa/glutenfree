@@ -8289,9 +8289,29 @@ nav ul, nav li {
 #branding a img {
   max-height: 135px !important;
 }
+@media (max-width: 767px) {
+  #branding a img {
+    max-height: 85px;
+  }
+}
+@media (max-width: 575px) {
+  #branding a img {
+    max-height: 60px;
+  }
+}
 
 #branding-large a img {
   max-height: 185px !important;
+}
+@media (max-width: 767px) {
+  #branding-large a img {
+    max-height: 115px;
+  }
+}
+@media (max-width: 575px) {
+  #branding-large a img {
+    max-height: 90px;
+  }
 }
 
 .searchbar-1 {
@@ -8326,7 +8346,7 @@ input[type=search] {
   background-color: #3a3838;
 }
 
-body {
+body, .edit-post-visual-editor.editor-styles-wrapper {
   background-color: #1a1919;
   color: white;
 }
@@ -8369,6 +8389,10 @@ nav.pagination {
 }
 nav.pagination a {
   font-family: "Oswald", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+a:hover {
+  text-decoration: none !important;
 }
 
 ul.post-list {
@@ -8423,6 +8447,16 @@ figure {
   width: 100%;
   max-width: 900px;
   margin: auto;
+}
+@media (min-width: 769px) {
+  .content > *.float-left {
+    margin-left: 15px !important;
+  }
+}
+@media (min-width: 993px) {
+  .content > *.float-left {
+    margin-left: 105px !important;
+  }
 }
 .content .alignwide {
   width: 1100px !important;
@@ -8555,7 +8589,7 @@ ul.wp-block-latest-posts li {
     max-width: 50%;
   }
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   ul.wp-block-latest-posts li {
     flex-basis: 100%;
     max-width: 100%;
@@ -8570,7 +8604,57 @@ ul.wp-block-latest-posts li a {
   font-family: "Bungee", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   color: #fff !important;
 }
+ul.wp-block-latest-posts li a .wp-block-latest-posts__post-excerpt {
+  font-family: "Oswald", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
 ul.wp-block-latest-posts li .wp-block-latest-posts__post-author {
+  margin-top: 3px !important;
+  color: #fdb306 !important;
+  font-weight: 300 !important;
+}
+
+.glfr-block-latest-posts, .wp-block-glfr-latest-gfb-posts {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0;
+  display: flex;
+  flex-direction: row;
+  flex: 0 1 50%;
+  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .glfr-block-latest-posts, .wp-block-glfr-latest-gfb-posts {
+    flex: 0 1 100%;
+  }
+}
+.glfr-block-latest-posts li, .wp-block-glfr-latest-gfb-posts li {
+  flex-basis: 50%;
+  max-width: 50%;
+  padding: 30px;
+  list-style-type: none !important;
+}
+@media (max-width: 992px) {
+  .glfr-block-latest-posts li, .wp-block-glfr-latest-gfb-posts li {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+}
+.glfr-block-latest-posts li img, .wp-block-glfr-latest-gfb-posts li img {
+  max-width: 100%;
+  margin-bottom: 12px !important;
+}
+.glfr-block-latest-posts li a, .wp-block-glfr-latest-gfb-posts li a {
+  font-size: 16px !important;
+  font-family: "Bungee", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: #fff !important;
+}
+.glfr-block-latest-posts li a .wp-block-latest-posts__post-excerpt, .wp-block-glfr-latest-gfb-posts li a .wp-block-latest-posts__post-excerpt {
+  font-family: "Oswald", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+.glfr-block-latest-posts li .wp-block-latest-posts__post-author, .wp-block-glfr-latest-gfb-posts li .wp-block-latest-posts__post-author {
   margin-top: 3px !important;
   color: #fdb306 !important;
   font-weight: 300 !important;
@@ -8589,6 +8673,16 @@ blockquote p {
 }
 blockquote cite {
   font-size: 18px;
+}
+
+.sidebar-right li > ul, .sidebar-right li > ul li {
+  list-style: disc;
+}
+
+.sidebar-right .widget.widget_calendar {
+  margin-top: 35px;
+  margin-bottom: 15px;
+  align-self: center;
 }
 
 .comments-section {
@@ -8865,4 +8959,16 @@ table.woocommerce-table.woocommerce-table--order-details.shop_table.order_detail
 }
 table.woocommerce-table.woocommerce-table--order-details.shop_table.order_details bdi .woocommerce-Price-currencySymbol {
   color: #fff !important;
+}
+
+.active {
+  color: #050505 !important;
+}
+
+.wc-container h1, .wc-container h2, .woocommerce-products-header h1, .woocommerce-products-header h2, .woocommerce-tabs h1, .woocommerce-tabs h2, .related.products h1, .related.products h2 {
+  margin-left: 0 !important;
+}
+
+.woocommerce-checkout-payment label {
+  color: black !important;
 }

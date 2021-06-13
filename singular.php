@@ -1,10 +1,8 @@
 <?php
 /**
- * The main template file
+ * The single page or post template file
  *
- * This is the most generic template file in a WordPress theme
- * and one of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query.
+ * This overrides index.php for all individual pages and blog entries.
  * E.g., it puts together the home page when no home.php file exists.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
@@ -22,19 +20,11 @@ get_header();
     <div class="container">
         <?php if ( is_active_sidebar( 'blog_right' ) ): ?>
             <div class="row">
-                <div class="col-12 col-9-md">
-                    <h1><?php the_title(); ?></h1>
-                    <div class="content"><?php the_content(); ?></div>
-                </div>
-                <div class="col-12 col-3-lg">
-                    <?php dynamic_sidebar( 'blog_right' ); ?>
-                </div>
+                <?php get_template_part( 'template-parts/content-left' ); ?>   
+                <?php get_template_part( 'template-parts/sidebar-right' ); ?>
             </div>
         <?php else: ?>
-            <div class="content">
-                <h1 class="text-center text-lg-left"><?php the_title(); ?></h1>    
-                <?php the_content(); ?>
-            </div>
+            <?php get_template_part( 'template-parts/content-no-sidebar' ); ?>
         <?php endif; ?>
         <hr>
         <?php if ( is_single() && ! is_woocommerce() && ! is_cart() && ! is_checkout() && ! is_account_page() ): ?>

@@ -1,4 +1,3 @@
-<?php //echo $show_social_links; ?>
 <?php if ( $social_links[0] !== "" || $social_links[1] !== "" || $social_links[2] !== "" || $social_links[3] !== "" || $social_links[4] !== "" ): ?>    
     <nav class="social-nav-mobile d-flex justify-content-center align-items-center d-lg-none pt-1 pb-5">
         <ul class="d-flex flex-row m-0">

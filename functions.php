@@ -18,9 +18,9 @@ add_action( 'after_setup_theme', 'register_navwalker' );
 
 function glfr_enqueue_scripts() {
     wp_enqueue_style( 'googlefonts', 'https://fonts.googleapis.com/css2?family=Bungee&family=Oswald:wght@200;300;400;500;600;700&display=swap', array() );
-    wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.css', array(), '1.0.0' );
+    wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.css', array(), '1.0.1' );
     wp_enqueue_style( 'dashicons' );
-	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.js', array(), '1.0.0', true );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.js', array(), '1.0.2', true );
 }
 add_action( 'wp_enqueue_scripts', 'glfr_enqueue_scripts' );
 
@@ -104,7 +104,11 @@ function glfr_theme_support() {
 		)
 	);
 
-	add_theme_support( 'align-wide' );
+	// add_theme_support( 'align-wide' );
+
+	if ( class_exists( 'woocommerce' )) {
+		add_theme_support( 'woocommerce' );
+	}
 
 }
 add_action( 'after_setup_theme', 'glfr_theme_support' );
@@ -112,7 +116,7 @@ add_action( 'after_setup_theme', 'glfr_theme_support' );
 //add menus 
 function glfr_create_menus() {
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'THEMENAME' ),
+		'primary' => __( 'Primary Menu', 'glfr' ),
 	) );
 }
 add_action( 'init', 'glfr_create_menus' );
@@ -139,91 +143,22 @@ function glfr_register_sidebars() {
 }
 add_action( 'widgets_init', 'glfr_register_sidebars' );
 
-//enqueue block assets
-function glfr_enqueue_block_editor_assets() {
-	// wp_enqueue_style( 'gutenberg-style', get_template_directory_uri() . '/assets/css/style.css', array(), filemtime( get_template_directory() . '/assets/css/style.css' ), 'all' );
-	wp_enqueue_style( 'gutenberg-style', get_template_directory_uri() . '/assets/css/style.css', array(), '1.0.0', 'all' );
+//gutenberg-related functions and actions
+function glfr_set_up_gutenberg() {
+	require_once get_template_directory() . "/inc/gutenberg.php";
 }
-add_action( 'enqueue_block_editor_assets', 'glfr_enqueue_block_editor_assets', 100 );
+add_action( 'after_setup_theme', 'glfr_set_up_gutenberg' );
 
-/**
- * Block Editor Settings.
- * Add custom colors and font sizes to the block editor.
- */
-function glfr_block_editor_settings() {
-
-	// Block Editor Palette.
-	$editor_color_palette = array(
-		array(
-			'name'  => __( 'Orange (Primary)', 'glfr' ),
-			'slug'  => 'orange',
-			'color' => '#fdb306'
-		),
-		array(
-			'name'  => __( 'Light Green (Accent, Success)', 'glfr' ),
-			'slug'  => 'light_green',
-			'color' => '#93bb31'
-		),
-		array(
-			'name'  => __( 'Dark Green (Background)', 'glfr' ),
-			'slug'  => 'dark_green',
-			'color' => '#12451e'
-		),
-		array(
-			'name'  => __( 'Red (Danger)', 'glfr' ),
-			'slug'  => 'red',
-			'color' => '#FD3706'
-		),
-		array(
-			'name'  => __( 'Dark Background 1', 'glfr' ),
-			'slug'  => 'dark_background_1',
-			'color' => '#172125 '
-		),
-		array(
-			'name'  => __( 'Dark Background 2', 'glfr' ),
-			'slug'  => 'dark_background_2',
-			'color' => '#2a2828'
-		)
-	);
-
-	add_theme_support( 'editor-color-palette', $editor_color_palette );
-
-
-	// Block Editor Font Sizes.
-	add_theme_support(
-		'editor-font-sizes',
-		array(
-			array(
-				'name'      => _x( 'Small', 'Name of the small font size in the block editor', 'glfr' ),
-				'shortName' => _x( 'S', 'Short name of the small font size in the block editor.', 'glfr' ),
-				'size'      => 18,
-				'slug'      => 'small',
-			),
-			array(
-				'name'      => _x( 'Regular', 'Name of the regular font size in the block editor', 'glfr' ),
-				'shortName' => _x( 'M', 'Short name of the regular font size in the block editor.', 'glfr' ),
-				'size'      => 21,
-				'slug'      => 'normal',
-			),
-			array(
-				'name'      => _x( 'Large', 'Name of the large font size in the block editor', 'glfr' ),
-				'shortName' => _x( 'L', 'Short name of the large font size in the block editor.', 'glfr' ),
-				'size'      => 26.25,
-				'slug'      => 'large',
-			),
-			array(
-				'name'      => _x( 'Larger', 'Name of the larger font size in the block editor', 'glfr' ),
-				'shortName' => _x( 'XL', 'Short name of the larger font size in the block editor.', 'glfr' ),
-				'size'      => 32,
-				'slug'      => 'larger',
-			),
-		)
-	);
-
-	add_theme_support( 'editor-styles' );
-
+function glfr_wc_open_container() {
+	echo '<div class="container wc-container">';
 }
+add_action( 'woocommerce_before_main_content', 'glfr_wc_open_container' );
 
-add_action( 'after_setup_theme', 'glfr_block_editor_settings' );
+function glfr_wc_close_container() {
+	echo '</div>';
+}
+add_action( 'woocommerce_after_main_content', 'glfr_wc_close_container' );
+
+remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 
 ?>
