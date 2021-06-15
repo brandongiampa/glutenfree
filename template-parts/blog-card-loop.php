@@ -1,3 +1,16 @@
+<?php
+/**
+ * The template file for individual cards displaying meta info or posts (and linking them) 
+ * in archives, search pages, etc.
+ * 
+ * Is in format of li tags, to be included in another page's ul tags.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
 <?php if ( have_posts() ): ?>
     <?php while ( have_posts() ) : the_post(); ?>
         <li class="blog-list-item">

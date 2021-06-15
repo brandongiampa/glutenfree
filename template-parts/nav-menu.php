@@ -1,3 +1,13 @@
+<?php
+/**
+ * The template file for the menu button ("hamburger") on the navbar, which opens the menu hidden on the left side.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
 <?php 
         $navbar_class = "navbar navbar-expand-lg navbar-light bg-light"; 
 

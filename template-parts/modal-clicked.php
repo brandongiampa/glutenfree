@@ -1,3 +1,17 @@
+<?php
+/**
+ * The template file for the modal sidebar. Includes the HTML for both the button to open the modal
+ * and the modal itself.
+ * 
+ * The current customer is using this for a contact form, so the button has a "mail" symbol hard-coded in.
+ * I may make this customizable if another customer uses this theme.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
 <?php if ( is_active_sidebar( 'modal_clicked' ) && get_theme_mod( 'show_modal' , true ) ): ?>
     <div id="modal-trigger-div" class="position-fixed">
         <button type="button" class="btn btn-light rounded-circle p-3" data-toggle="modal" data-target=".modal-click">

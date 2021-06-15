@@ -1,4 +1,16 @@
 <?php
+/**
+ * Adds social nav options section to customizer and adds controls and settings to section.
+ * 
+ * These settings allow the customer to provide social media links and sort which platforms they want to display.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
+<?php
 //add section
 $wp_customize->add_section( "glfr_social_options", array(
     'priority' => 1,

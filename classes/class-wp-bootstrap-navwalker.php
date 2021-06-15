@@ -1,5 +1,19 @@
 <?php
 /**
+ * 
+ * I borrowed this from open source code for a WordPress plugin by Edward McIntyre.
+ * This allows developers using Bootstrap to use hoverable links in the nav menu.
+ * I am not removing any of the plugin author's original comments, though I utilize
+ * this class in the theme itself and am not using the plugin.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
+<?php
+/**
  * WP Bootstrap Navwalker
  *
  * @package WP-Bootstrap-Navwalker

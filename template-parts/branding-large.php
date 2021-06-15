@@ -1,3 +1,16 @@
+<?php
+/**
+ * The template file for the site's logo to appear slightly large on the front/home pages
+ * on larger screens.
+ * 
+ * This is per customer request.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
 <div id="branding-large" class="bg-primary px-3 py-2 my-4 rounded">
     <a href="<?php echo get_bloginfo( 'url' ); ?>">
         <?php

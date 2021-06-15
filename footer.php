@@ -1,3 +1,19 @@
+<?php
+/**
+ * Footer file for the Gluten Free WordPress default theme.
+ * 
+ * This also includes the HTML for the modal that pops up
+ * when a page visitor clicks the button that pops up on the
+ * bottom right of the page.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
 <?php get_template_part( 'template-parts/modal-clicked' ); ?>
 <footer class="d-flex flex-column justify-content-center align-items-center py-4 bg-dark">
     <?php if ( get_theme_mod( 'glfr_show_copyright', true ) ): ?>

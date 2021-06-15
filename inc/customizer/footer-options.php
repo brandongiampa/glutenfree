@@ -1,4 +1,14 @@
 <?php
+/**
+ * Adds footer options section to customizer and adds controls and settings to section.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
+<?php
 //add section
 $wp_customize->add_section( "glfr_footer_options", array(
     'priority' => 5,

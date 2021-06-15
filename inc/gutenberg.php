@@ -1,8 +1,25 @@
 <?php
+/**
+ * These functions are all related to Gutenberg. This file is included in functions.php.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+
+ /**
+ * Table of Contents:
+ * Enqueue Block Editor Assets
+ * Block Editor Settings
+ * Make Recent Posts Array
+ */
+?>
+
+<?php
 
 /** 
  * Enqueue style for Gutenberg page, and 
- * Cheating to register block type for customer.
+ * Cheating to register block type for customer and localize script to access on front end.
 **/
 function glfr_enqueue_block_editor_assets() {
 	// wp_enqueue_style( 'gutenberg-style', get_template_directory_uri() . '/assets/css/style.css', array(), filemtime( get_template_directory() . '/assets/css/style.css' ), 'all' );
@@ -101,15 +118,6 @@ function glfr_block_editor_settings() {
 
 }
 add_action( 'after_setup_theme', 'glfr_block_editor_settings' );
-
-function glfr_make_header_class() {
-	if ( is_front_page() || is_home() ){
-		echo "header-large";
-	}
-	else {
-		echo "header-small";
-	}
-}
 
 function glfr_make_recent_posts_array() {
 

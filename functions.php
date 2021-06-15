@@ -1,5 +1,42 @@
 <?php
+/**
+ * Gluten Free theme functions and definitions
+ *
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
 
+/**
+ * Table of Contents:
+ * Unique ID Function
+ * Register Navwalker
+ * Enqueue Scripts
+ * Theme Supports
+ * Register Menus
+ * Register Sidebars
+ * Gutenberg-related Functions
+ * WooCommerce-related functions
+ * Header Class
+ */
+
+/**
+ * Sets up theme defaults and registers support for various WordPress features.
+ *
+ * Note that this function is hooked into the after_setup_theme hook, which
+ * runs before the init hook. The init hook is too late for some features, such
+ * as indicating support for post thumbnails.
+ */
+?>
+
+<?php
+
+/**
+ * Unique ID
+ * This function builds IDs for Gutenberg Blocks and Sidebar Widgets (glfr_unique_id)
+*/
 function glfr_unique_id( $prefix = '' ) {
 	static $id_counter = 0;
 	if ( function_exists( 'wp_unique_id' ) ) {
@@ -10,12 +47,16 @@ function glfr_unique_id( $prefix = '' ) {
 
 /**
  * Register Custom Navigation Walker
- */
+ * This is external code that allows for hoverable menu items in Bootstrap nav menus.
+*/
 function register_navwalker(){
 	require_once get_template_directory() . '/classes/class-wp-bootstrap-navwalker.php';
 }
 add_action( 'after_setup_theme', 'register_navwalker' );
 
+/**
+ * Enqueue Scripts for Public HTML
+*/
 function glfr_enqueue_scripts() {
     wp_enqueue_style( 'googlefonts', 'https://fonts.googleapis.com/css2?family=Bungee&family=Oswald:wght@200;300;400;500;600;700&display=swap', array() );
     wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.css', array(), '1.0.1' );
@@ -24,6 +65,9 @@ function glfr_enqueue_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'glfr_enqueue_scripts' );
 
+/**
+ * Theme Supports
+*/
 function glfr_theme_support() {
 
 	//include customizer file 
@@ -113,13 +157,19 @@ function glfr_theme_support() {
 }
 add_action( 'after_setup_theme', 'glfr_theme_support' );
 
-//add menus 
+/**
+ * Add Menus
+*/
 function glfr_create_menus() {
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'glfr' ),
 	) );
 }
 add_action( 'init', 'glfr_create_menus' );
+
+/**
+ * Register Sidebars
+*/
 
 function glfr_register_sidebars() {
 	register_sidebar( array(
@@ -142,23 +192,41 @@ function glfr_register_sidebars() {
 	));
 }
 add_action( 'widgets_init', 'glfr_register_sidebars' );
+/**
+ * Gutenberg-related functions and actions
+*/
 
-//gutenberg-related functions and actions
 function glfr_set_up_gutenberg() {
 	require_once get_template_directory() . "/inc/gutenberg.php";
 }
 add_action( 'after_setup_theme', 'glfr_set_up_gutenberg' );
 
+/**
+ * WooCommerce-related functions and actions
+*/
+//make sure WC page content is wrapped in Bootstrap container, this echoes the opening HTML tag...
 function glfr_wc_open_container() {
 	echo '<div class="container wc-container">';
 }
 add_action( 'woocommerce_before_main_content', 'glfr_wc_open_container' );
 
+//...and this closes the container HTML tag
 function glfr_wc_close_container() {
 	echo '</div>';
 }
 add_action( 'woocommerce_after_main_content', 'glfr_wc_close_container' );
 
+//remove annoying sidebar that appears after WC content
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+
+//this distinguishes between page types so that the branding appears larger at home/front pages
+function glfr_make_header_class() {
+	if ( is_front_page() || is_home() ){
+		echo "header-large";
+	}
+	else {
+		echo "header-small";
+	}
+}
 
 ?>

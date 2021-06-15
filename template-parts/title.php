@@ -1,4 +1,12 @@
-<!-- <h1 class="archive-h1"> -->
+<?php
+/**
+ * The template file for titles at the top of everything except front-page or home.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
 <?php 
 $h1_class = "mx-auto my-4 my-lg-5";
 

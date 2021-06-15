@@ -1,4 +1,16 @@
 <?php
+/**
+ * Adds modal options section to customizer and adds controls and settings to section.
+ * 
+ * The affects how "modal nav" works.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
+<?php
 //add section
 $wp_customize->add_section( "modal_options", array(
     'priority' => 2,

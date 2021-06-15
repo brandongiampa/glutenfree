@@ -1,5 +1,17 @@
-<?php 
+<?php
+/**
+ * The customizer template file, included in functions.php to set up the
+ * customizer.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
 
+<?php
+
+//function adding content to customizer, organizing .php files to be included.
 function glfr_customize_register( $wp_customize ) {
 
     //add panel
@@ -25,6 +37,7 @@ function glfr_sanitize_checkbox( $input ){
     return ( isset( $input ) ? true : false );
 }
 
+//select sanitization function
 function glfr_sanitize_select( $input, $setting ) {
 
     // Ensure input is a slug.

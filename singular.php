@@ -16,7 +16,9 @@ get_header();
 ?>
 
 <?php if ( have_posts() ): ?>
+
     <?php while ( have_posts() ): the_post(); ?>
+
     <div class="container">
         <?php if ( is_active_sidebar( 'blog_right' ) ): ?>
             <div class="row">
@@ -40,8 +42,10 @@ get_header();
         <?php endif; ?>
     </div><!--end container-->
     <?php endwhile; ?>
+
 <?php else: ?>
     <?php get_template_part( 'template-parts/no-content' ); ?>
+
 <?php endif; ?>
 
 <?php get_footer(); ?>

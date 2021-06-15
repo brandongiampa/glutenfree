@@ -1,3 +1,13 @@
+<?php
+/**
+ * The template file for content on pages where the sidebar-right is not active.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
 <?php if ( is_search() || is_archive() ): ?>
     <div class="content">
         <?php get_template_part( 'template-parts/title' ); ?>

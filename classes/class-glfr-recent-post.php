@@ -1,4 +1,24 @@
 <?php
+/**
+ * 
+ * To keep a consistent theme, the "recent posts" cards should should be wrapped in an anchor tag 
+ * and link to the post when you click anywhere on the card, rather than the WordPress default of 
+ * clicking on the title. This is not an override, but an available option to those using Gutenberg 
+ * to use such cards.
+ * 
+ * Since this theme is not available publicly, I decided to break the rules and add a Gutenberg 
+ * component to the theme, rather than adding a separate plugin.
+ * 
+ * Looking back at this class a few months after the fact, I can't recall why I am using public fields.
+ * I may have to check this code again if I ever want to reuse it. 
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
+<?php
 
 class GLFR_Recent_Post {
 

@@ -1,3 +1,13 @@
+<?php
+/**
+ * The template file for main content on pages where the sidebar-right is active.
+ *
+ * @package WordPress
+ * @subpackage Gluten_Free
+ * @since Gluten Free 1.0
+ */
+?>
+
 <?php if ( is_search() || is_archive() || is_home() ): ?>
     <div class="col-12 col-lg-9 pr-lg-5">
         <div class="content">
