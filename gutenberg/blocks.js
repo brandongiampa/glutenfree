@@ -139,8 +139,7 @@ registerBlockType('glfr/latest-gfb-posts', {
               recentPosts: glfr_wp.recent_posts.filter(function (entry) {
                 return entry.category === new_val;
               })
-            }); // console.log( props.attributes.selectedCategory )
-            // console.log( props.attributes.recentPosts )
+            });
           }
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(PanelBody, {

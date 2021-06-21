@@ -8787,7 +8787,8 @@ footer p {
 
 button.wpforms-submit {
   background-color: #fdb306 !important;
-  color: #fff;
+  color: #fff !important;
+  font-weight: 600 !important;
 }
 
 @media (max-width: 991px) {
@@ -8969,6 +8970,38 @@ table.woocommerce-table.woocommerce-table--order-details.shop_table.order_detail
   margin-left: 0 !important;
 }
 
+.woocommerce-products-header > h1 {
+  margin-bottom: 45px;
+}
+
 .woocommerce-checkout-payment label {
   color: black !important;
+}
+
+li.product_cat {
+  font-size: 17px;
+  font-weight: 200;
+}
+li.product_cat .current-cat > a {
+  font-weight: 600;
+}
+li.product_cat li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+li.product_cat > ul > li:first-child {
+  padding-top: 10px;
+}
+li.product_cat ul {
+  padding-left: 0;
+}
+li.product_cat ul .children > li:first-child {
+  padding-top: 10px;
+}
+
+.select2-results {
+  color: #050505;
+}
+.select2-results > ul > li:hover, .select2-results > ul > li.select2-results__option.select2-results__option--highlighted {
+  background-color: #fdb306 !important;
 }

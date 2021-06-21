@@ -58,7 +58,7 @@ add_action( 'after_setup_theme', 'register_navwalker' );
  * Enqueue Scripts for Public HTML
 */
 function glfr_enqueue_scripts() {
-    wp_enqueue_style( 'googlefonts', 'https://fonts.googleapis.com/css2?family=Bungee&family=Oswald:wght@200;300;400;500;600;700&display=swap', array() );
+    wp_enqueue_style( 'googlefonts', 'https://fonts.googleapis.com/css2?family=Bungee&family=Oswald:wght@200;400;500;&display=swap', array() );
     wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.css', array(), '1.0.1' );
     wp_enqueue_style( 'dashicons' );
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.js', array(), '1.0.2', true );
@@ -172,24 +172,19 @@ add_action( 'init', 'glfr_create_menus' );
 */
 
 function glfr_register_sidebars() {
+
 	register_sidebar( array(
 		'name' => 'Page Right',
 		'id' => 'blog_right',
 		'description' => __( 'Widget area located at right column of pages and posts.', 'glfr' ),
-		// 'before_widget' => $beforeWidget,
-		// 'after_widget' => $afterWidget,
-		// 'before_title' => $beforeTitle,
-		// 'after_title' => $afterTitle,
 	));
+
 	register_sidebar( array(
 		'name' => 'Modal (Clicked)',
 		'id' => 'modal_clicked',
 		'description' => __( 'Widget area that pops up when user clicks button fixed at lower right-hand corner.', 'glfr' ),
-		// 'before_widget' => $beforeWidget,
-		// 'after_widget' => $afterWidget,
-		// 'before_title' => $beforeTitle,
-		// 'after_title' => $afterTitle,
 	));
+
 }
 add_action( 'widgets_init', 'glfr_register_sidebars' );
 /**
@@ -216,8 +211,131 @@ function glfr_wc_close_container() {
 }
 add_action( 'woocommerce_after_main_content', 'glfr_wc_close_container' );
 
+//on shop & product archive pages echo mobile-only sidebar beneath title
+function glfr_echo_shop_mobile_nav() {
+
+	if ( is_product_category() ) {
+
+		echo '<div class="d-flex justify-content-center align-items-center d-lg-none mb-5 mb-lg-0">';
+		wc_product_dropdown_categories(
+			apply_filters(
+				'woocommerce_product_categories_widget_dropdown_args',
+				// wp_parse_args(
+				// 	$dropdown_args,
+					array(
+						'show_count'         => $count,
+						'hierarchical'       => $hierarchical,
+						'show_uncategorized' => 0,
+						'selected'           => single_cat_title( '', false ),
+					)
+				// )
+			)
+		);
+
+		wp_enqueue_script( 'selectWoo' );
+		wp_enqueue_style( 'select2' );
+
+		wc_enqueue_js(
+			"
+			jQuery( '.dropdown_product_cat' ).change( function() {
+				if ( jQuery(this).val() != '' ) {
+					var this_page = '';
+					var home_url  = '" . esc_js( home_url( '/' ) ) . "';
+					if ( home_url.indexOf( '?' ) > 0 ) {
+						this_page = home_url + '&product_cat=' + jQuery(this).val();
+					} else {
+						this_page = home_url + '?product_cat=' + jQuery(this).val();
+					}
+					location.href = this_page;
+				} else {
+					location.href = '" . esc_js( wc_get_page_permalink( 'shop' ) ) . "';
+				}
+			});
+
+			if ( jQuery().selectWoo ) {
+				var wc_product_cat_select = function() {
+					jQuery( '.dropdown_product_cat' ).selectWoo( {
+						placeholder: '" . esc_js( __( 'Select a category', 'woocommerce' ) ) . "',
+						minimumResultsForSearch: 5,
+						width: '100%',
+						allowClear: true,
+						language: {
+							noResults: function() {
+								return '" . esc_js( _x( 'No matches found', 'enhanced select', 'woocommerce' ) ) . "';
+							}
+						}
+					} );
+				};
+				wc_product_cat_select();
+			}
+		"
+		);
+		echo '</div>';
+
+	}
+
+}
+add_action( 'woocommerce_before_shop_loop', 'glfr_echo_shop_mobile_nav', 10 );
+
+// If shop sidebar-left is active, this creates row and sets up sidebar
+function glfr_open_wc_shop_pc_nav_row_tag() {
+
+	if ( is_shop() || is_product_category() ) {
+
+		try {
+
+			$list_args = array();
+			$list_args['title_li']                   = 'Shop';
+			$list_args['show_option_none']           = __( 'No product categories exist.', 'woocommerce' );
+			$list_args['current_category']           = get_queried_object_id();
+			$list_args['style'] 					 = 'list';
+			$list_args['taxonomy'] 					 = 'product_cat';
+
+			echo '<div class="row">';
+				echo '<div class="col-3 col-lg d-none d-lg-block">';					 
+					echo '<ul class="list-group product-categories bg-dark text-light p-0 pl-2 pt-2 m-0">';
+						wp_list_categories( $list_args );
+					echo '</ul>';
+				echo '</div>';
+				echo '<div class="col col-lg-9">';
+
+		}
+		catch ( WP_Error $e ) {
+			error_log( $e->getMessage() );
+		}
+
+	}
+
+}
+add_action( 'woocommerce_before_shop_loop', 'glfr_open_wc_shop_pc_nav_row_tag' );
+
+function glfr_add_list_item_bootstrap_classes( $str ) {
+
+	$str = str_replace( '<li class="cat-item', '<li class="list-group-item bg-dark cat-item', $str );
+	$str = str_replace( 'current-cat', 'current-cat bg-primary', $str );
+	$str = str_replace( '<a aria-current', '<a class="text-primary" aria-current', $str );
+	$str = str_replace( '<a href', '<a class="text-light" href', $str );
+	$str = str_replace( 'Shop<ul>', '<a class="text-light" href="' . get_permalink( woocommerce_get_page_id( 'shop' ) ) . '">Shop</a><ul>', $str );
+
+	return $str;
+
+}
+add_filter( 'wp_list_categories', 'glfr_add_list_item_bootstrap_classes' );
+
+//this closes the above html
+function glfr_close_wc_shop_pc_nav_row_tag() {
+
+	if ( is_active_sidebar( 'shop-left' ) && is_shop() ) {
+
+		echo "</div></div>";
+
+	}
+
+}
+add_action( 'woocommerce_after_shop_loop', 'glfr_close_wc_shop_pc_nav_row_tag' );
+
 //remove annoying sidebar that appears after WC content
-remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar' );
 
 //this distinguishes between page types so that the branding appears larger at home/front pages
 function glfr_make_header_class() {
@@ -227,6 +345,91 @@ function glfr_make_header_class() {
 	else {
 		echo "header-small";
 	}
+}
+
+function glfr_make_content_class() {
+
+	if ( is_active_sidebar( 'blog_right' ) ) {
+
+		echo "col col-lg-9 pr-lg-5";
+
+	}
+	else {
+
+		echo "col";
+
+	}
+
+}
+
+function glfr_make_categories_link_meta_list( $category_array ) {
+
+	if ( sizeof( $category_array ) < 1 ) { // make sure array has entries
+
+		return false;
+
+	}
+
+	$output_array = array(); //empty array to implode later to make list with commas
+
+	foreach ( $category_array as $category ) {
+
+		$name = $category->name;
+		$url = get_category_link( $category->term_id );
+
+		$str = "";
+		$str .= '<a href="' . $url . '">';
+			$str .= $name;
+		$str .= '</a>';
+
+		$output_array[] = $str;
+
+	}
+
+	echo implode( $output_array, ", " );
+	return true;
+
+}
+
+function glfr_echo_date_archive_url() {
+
+	$date = get_the_date( 'Y-m-j' );
+	$arr = explode( "-", $date );
+	$year = $arr[ 0 ];
+	$month = $arr[ 1 ];
+	$day = $arr[ 2 ];
+
+	echo get_day_link( $year, $month, $day );
+	return true;
+
+}
+
+function glfr_make_social_links_array() {
+
+	$output = array();
+
+	for ( $i = 1; $i <= 5; $i++ ) {
+
+		$link = get_theme_mod( 'glfr_social_link_' . $i );
+		$icon = get_theme_mod( 'glfr_social_icon_' . $i );
+
+		if ( $link && $icon && $link !== "" && $icon !== "" ) {
+
+			$assoc = array(
+
+				'link'		=>		$link,
+				'icon'		=>		$icon
+
+			);
+	
+			$output[] = $assoc;
+
+		}
+
+	}
+
+	return sizeof( $output ) > 0 ? $output : false ;
+
 }
 
 ?>

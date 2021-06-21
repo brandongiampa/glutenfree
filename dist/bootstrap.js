@@ -1949,8 +1949,6 @@ __webpack_require__.r(__webpack_exports__);
  // import brandingGSAP from "./gsap"
 // import socialGSAP from "./gsap"
 
- // animatePage( "welcome" )
-// animatePage( "welcome again" )
 
 /**
  * --------------------------------------------------------------------------

@@ -10,8 +10,9 @@
 <?php 
 $h1_class = "mx-auto my-4 my-lg-5";
 
+
 if ( !is_archive() && !is_search() ) {
-    $h1_class .= " p-4 p-lg-0"; 
+    $h1_class .= " py-4 py-lg-0"; 
 }
 
 ?>

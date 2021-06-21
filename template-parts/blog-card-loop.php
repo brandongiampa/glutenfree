@@ -26,8 +26,7 @@
                             ?>
                     </div>
                     <div class="posts-description col-12 col-md-6 col-lg-8 p-3">
-                            <?php
-                            
+                            <?php                         
                             $tags = get_the_tags( get_the_ID() ); 
 
                             if ( $tags ){
