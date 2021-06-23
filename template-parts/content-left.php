@@ -12,6 +12,7 @@
     <div class="col-12 col-lg-9 pr-lg-5">
         <div class="content">
             <?php get_template_part( 'template-parts/title' ); ?>
+            <?php glfr_is_recipe_archive() ? get_template_part( 'template-parts/recipe-search' ) : false; ?>
             <ul class="m-0 post-list">
                 <?php get_template_part( 'template-parts/blog-card-loop' ); ?>
             </ul>

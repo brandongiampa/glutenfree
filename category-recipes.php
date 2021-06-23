@@ -17,12 +17,10 @@ get_header();
 <div class="container">
     <?php if ( is_active_sidebar( 'blog_right' ) ): ?>
         <div class="row">
-            <?php get_template_part( 'template-parts/recipe-search' ); ?>
             <?php get_template_part( 'template-parts/content-left' ); ?>
             <?php get_template_part( 'template-parts/sidebar-right' ); ?>
         </div>
     <?php else: ?>
-        <?php get_template_part( 'template-parts/recipe-search' ); ?>
         <?php get_template_part( 'template-parts/content-no-sidebar' ); ?>
     <?php endif; ?>
     <div class="p-4">

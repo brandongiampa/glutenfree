@@ -1934,6 +1934,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
 /* harmony import */ var _sidebars__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sidebars */ "./src/js/sidebars.js");
 /* harmony import */ var _gsap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./gsap */ "./src/js/gsap.js");
+/* harmony import */ var _recipe_search__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./recipe-search */ "./src/js/recipe-search.js");
+/* harmony import */ var _recipe_search__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_recipe_search__WEBPACK_IMPORTED_MODULE_11__);
 
 
 
@@ -1948,6 +1950,7 @@ __webpack_require__.r(__webpack_exports__);
 
  // import brandingGSAP from "./gsap"
 // import socialGSAP from "./gsap"
+
 
 
 /**
@@ -2854,6 +2857,16 @@ var Popover = function ($) {
 }((jquery__WEBPACK_IMPORTED_MODULE_0___default()));
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Popover);
+
+/***/ }),
+
+/***/ "./src/js/recipe-search.js":
+/*!*********************************!*\
+  !*** ./src/js/recipe-search.js ***!
+  \*********************************/
+/***/ (() => {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\src\\js\\recipe-search.js: Support for the experimental syntax 'classProperties' isn't currently enabled (29:24):\n\n\u001b[0m \u001b[90m 27 |\u001b[39m     }\u001b[0m\n\u001b[0m \u001b[90m 28 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 29 |\u001b[39m     \u001b[36mstatic\u001b[39m placeholder \u001b[33m=\u001b[39m glfr_recipes\u001b[33m.\u001b[39mblog_name\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 30 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 31 |\u001b[39m     \u001b[0m\n\u001b[0m \u001b[90m 32 |\u001b[39m\u001b[0m\n\nAdd @babel/plugin-proposal-class-properties (https://git.io/vb4SL) to the 'plugins' section of your Babel config to enable transformation.\nIf you want to leave it as-is, add @babel/plugin-syntax-class-properties (https://git.io/vb4yQ) to the 'plugins' section to enable parsing.\n    at Object._raise (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:776:17)\n    at Object.raiseWithData (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:769:17)\n    at Object.expectPlugin (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:9188:18)\n    at Object.parseClassProperty (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:12820:12)\n    at Object.pushClassProperty (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:12788:30)\n    at Object.parseClassMemberWithIsStatic (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:12695:14)\n    at Object.parseClassMember (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:12632:10)\n    at C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:12577:14\n    at Object.withTopicForbiddingContext (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:11616:14)\n    at Object.parseClassBody (C:\\xampp\\htdocs\\gfb-supply\\wp-content\\themes\\gluten-free\\node_modules\\@babel\\parser\\lib\\index.js:12554:10)");
 
 /***/ }),
 

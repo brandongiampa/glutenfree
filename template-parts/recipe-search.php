@@ -9,8 +9,14 @@
  */
 ?>
 
-<form action="<?php echo $_SERVER[ 'PHP_SELF' ]; ?>">
-    <?php if ( isset( $_GET[ 'c' ] ) ) {
-        echo $_GET[ 'c' ];
-    } ?>
+<form id="recipe-search-form" method="get" aria-label="recipe-search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
+    <input 
+        id="recipe-search-input"
+        type="search" 
+        placeholder="Search in Recipes" 
+        aria-label="recipe-search-input" 
+        class="form-control border-0 bg-light"
+        name="s"
+    >
+    <button id="recipe-search-button" type="submit" class="btn btn-primary mt-2">Filter</button>
 </form>

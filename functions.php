@@ -62,6 +62,40 @@ function glfr_enqueue_scripts() {
     wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.css', array(), '1.0.1' );
     wp_enqueue_style( 'dashicons' );
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.js', array(), '1.0.2', true );
+	
+	//add category as javascript obj on recipe archive page for recipe filtering
+	if ( glfr_is_recipe_archive() ) {
+		
+		include_once( get_template_directory() . "/classes/class-glfr-recipe-card.php" );
+
+		global $wp_query;
+
+		$max_recipe_posts = get_theme_mod( 'max_recipe_posts', 1000 );
+		$recipe_posts_per_page = get_option( 'posts_per_page' );
+
+		$recipe_query = new WP_Query( array(
+			'category_name'				=>				'Recipes',
+			'posts_per_page'			=>				$max_recipe_posts
+		) );
+
+		$recipe_posts = $recipe_query->posts;
+		$recipe_tags = array();
+
+		foreach( $recipe_posts as $post ) {
+
+			$tag_array = get_the_tags( $post->ID );
+			array_push( $recipe_tags, $tag_array );
+
+		}
+
+		wp_localize_script( 'bootstrap', 'glfr_recipes', array( 
+			'default_query'		=>				$wp_query,
+			'full_query'		=>				$recipe_posts, //$recipe_query_results,		
+			'posts_per_page'	=>				$recipe_posts_per_page,
+			'tags'				=>				$recipe_tags,
+			'blog_name'			=>				get_bloginfo( 'name' )
+		 ) );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'glfr_enqueue_scripts' );
 
@@ -277,39 +311,11 @@ function glfr_echo_shop_mobile_nav() {
 }
 add_action( 'woocommerce_before_shop_loop', 'glfr_echo_shop_mobile_nav', 10 );
 
-// If shop sidebar-left is active, this creates row and sets up sidebar
-function glfr_open_wc_shop_pc_nav_row_tag() {
-
-	if ( is_shop() || is_product_category() ) {
-
-		try {
-
-			$list_args = array();
-			$list_args['title_li']                   = 'Shop';
-			$list_args['show_option_none']           = __( 'No product categories exist.', 'woocommerce' );
-			$list_args['current_category']           = get_queried_object_id();
-			$list_args['style'] 					 = 'list';
-			$list_args['taxonomy'] 					 = 'product_cat';
-
-			echo '<div class="row">';
-				echo '<div class="col-3 col-lg d-none d-lg-block">';					 
-					echo '<ul class="list-group product-categories bg-dark text-light p-0 pl-2 pt-2 m-0">';
-						wp_list_categories( $list_args );
-					echo '</ul>';
-				echo '</div>';
-				echo '<div class="col col-lg-9">';
-
-		}
-		catch ( WP_Error $e ) {
-			error_log( $e->getMessage() );
-		}
-
-	}
-
-}
-add_action( 'woocommerce_before_shop_loop', 'glfr_open_wc_shop_pc_nav_row_tag' );
-
-function glfr_add_list_item_bootstrap_classes( $str ) {
+/**
+* Filter to style nav menu on left side of shop page with bootstrap classes and convert title to link
+*
+*/
+function glfr_add_shop_nav_bootstrap_classes( $str ) {
 
 	$str = str_replace( '<li class="cat-item', '<li class="list-group-item bg-dark cat-item', $str );
 	$str = str_replace( 'current-cat', 'current-cat bg-primary', $str );
@@ -320,7 +326,42 @@ function glfr_add_list_item_bootstrap_classes( $str ) {
 	return $str;
 
 }
-add_filter( 'wp_list_categories', 'glfr_add_list_item_bootstrap_classes' );
+
+// If shop sidebar-left is active, this creates row and sets up sidebar
+function glfr_open_wc_shop_pc_nav_row_tag() {
+
+	if ( is_shop() || is_product_category() ) {
+
+		try {
+
+			$list_args = array();
+			$list_args['title_li']                   = 'ALL ITEMS';
+			$list_args['show_option_none']           = __( 'No product categories exist.', 'woocommerce' );
+			$list_args['current_category']           = get_queried_object_id();
+			$list_args['style'] 					 = 'list';
+			$list_args['taxonomy'] 					 = 'product_cat';
+
+			add_filter( 'wp_list_categories', 'glfr_add_shop_nav_bootstrap_classes' );
+
+			echo '<div class="row">';
+				echo '<div class="col-3 col-lg d-none d-lg-block">';					 
+					echo '<ul class="list-group product-categories bg-dark text-light p-0 pl-4 pt-4 m-0">';
+						wp_list_categories( $list_args );
+					echo '</ul>';
+				echo '</div>';
+				echo '<div class="col col-lg-9">';
+
+		}
+		catch ( WP_Error $e ) {
+			error_log( $e->getMessage() );
+		}
+
+		remove_filter( 'wp_list_categories', 'glfr_add_shop_nav_bootstrap_classes' );
+
+	}
+
+}
+add_action( 'woocommerce_before_shop_loop', 'glfr_open_wc_shop_pc_nav_row_tag' );
 
 //this closes the above html
 function glfr_close_wc_shop_pc_nav_row_tag() {
@@ -429,6 +470,27 @@ function glfr_make_social_links_array() {
 	}
 
 	return sizeof( $output ) > 0 ? $output : false ;
+
+}
+
+function glfr_is_recipe_archive() {
+
+	if ( ! is_archive() ) {
+
+		return false;
+
+	}
+
+	$category_obj = get_the_category();
+	$category_name = $category_obj[ 'name' ];
+
+	if ( ! $category_name === 'Recipes' ) {
+
+		return false;
+
+	}
+
+	return true;
 
 }
 

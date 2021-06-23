@@ -8979,7 +8979,8 @@ table.woocommerce-table.woocommerce-table--order-details.shop_table.order_detail
 }
 
 li.product_cat {
-  font-size: 17px;
+  font-family: "Bungee", serif;
+  font-size: 15px;
   font-weight: 200;
 }
 li.product_cat .current-cat > a {
@@ -8988,6 +8989,7 @@ li.product_cat .current-cat > a {
 li.product_cat li {
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 0;
 }
 li.product_cat > ul > li:first-child {
   padding-top: 10px;
@@ -8997,6 +8999,10 @@ li.product_cat ul {
 }
 li.product_cat ul .children > li:first-child {
   padding-top: 10px;
+}
+li.product_cat ul.children > li {
+  font-family: "Oswald", sans-serif;
+  padding-left: 0.7rem;
 }
 
 .select2-results {
