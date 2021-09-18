@@ -13,7 +13,7 @@
 ?>
 
 <?php if ( is_active_sidebar( 'modal_clicked' ) && get_theme_mod( 'show_modal' , true ) ): ?>
-    <div id="modal-trigger-div" class="position-fixed">
+    <div id="modal-trigger-div" class="position-fixed slide-from-bottom">
         <button type="button" class="btn btn-light rounded-circle p-3" data-toggle="modal" data-target=".modal-click">
             <span class="dashicons dashicons-email text-dark"></span>
         </button>

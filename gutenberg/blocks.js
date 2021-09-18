@@ -16,7 +16,7 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
@@ -24,7 +24,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-
+// import { _sortPropTweensByPriority } from "gsap/gsap-core"
 var registerBlockType = wp.blocks.registerBlockType;
 var __ = wp.i18n.__;
 var el = element.createElement;
@@ -238,31 +238,6 @@ registerBlockType('glfr/latest-gfb-posts', {
     });
   }
 });
-
-/***/ }),
-
-/***/ "./gutenberg/src/index.js":
-/*!********************************!*\
-  !*** ./gutenberg/src/index.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _blocks_latest_posts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blocks/latest-posts */ "./gutenberg/src/blocks/latest-posts.js");
-var registerBlockType = wp.blocks.registerBlockType;
-var __ = wp.i18n.__;
-var el = element.createElement;
-var InspectorControls = wp.blockEditor.InspectorControls;
-var _wp$components = wp.components,
-    PanelBody = _wp$components.PanelBody,
-    PanelRow = _wp$components.PanelRow,
-    TextControl = _wp$components.TextControl,
-    SelectControl = _wp$components.SelectControl,
-    __experimentalNumberControl = _wp$components.__experimentalNumberControl;
- // console.log( "Categories: " )
-// console.log( glfr_wp.post_categories )
-// console.log( "Recent Posts: "  )
-// console.log( glfr_wp.recent_posts )
 
 /***/ }),
 
@@ -3978,8 +3953,9 @@ if (false) {} else {
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -4008,9 +3984,29 @@ if (false) {} else {
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__("./gutenberg/src/index.js");
-/******/ 	// This entry module used 'exports' so it can't be inlined
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!********************************!*\
+  !*** ./gutenberg/src/index.js ***!
+  \********************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _blocks_latest_posts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blocks/latest-posts */ "./gutenberg/src/blocks/latest-posts.js");
+var registerBlockType = wp.blocks.registerBlockType;
+var __ = wp.i18n.__;
+var el = element.createElement;
+var InspectorControls = wp.blockEditor.InspectorControls;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    PanelRow = _wp$components.PanelRow,
+    TextControl = _wp$components.TextControl,
+    SelectControl = _wp$components.SelectControl,
+    __experimentalNumberControl = _wp$components.__experimentalNumberControl;
+ // console.log( "Categories: " )
+// console.log( glfr_wp.post_categories )
+// console.log( "Recent Posts: "  )
+// console.log( glfr_wp.recent_posts )
+})();
+
 /******/ })()
 ;

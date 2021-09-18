@@ -25,7 +25,6 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "gsap": "^3.6.0",
     "jquery": "^3.5.1",
     "jsx-runtime": "^1.2.0",
     "popper.js": "^1.16.1",

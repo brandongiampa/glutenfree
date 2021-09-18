@@ -66,12 +66,12 @@ function glfr_enqueue_scripts() {
 	//add category as javascript obj on recipe archive page for recipe filtering
 	if ( glfr_is_recipe_archive() ) {
 		
-		include_once( get_template_directory() . "/classes/class-glfr-recipe-card.php" );
-
-		global $wp_query;
+		include_once __DIR__ . "/classes/class-glfr-recipe.php";
 
 		$max_recipe_posts = get_theme_mod( 'max_recipe_posts', 1000 );
 		$recipe_posts_per_page = get_option( 'posts_per_page' );
+
+		$glfr_recipes = array();
 
 		$recipe_query = new WP_Query( array(
 			'category_name'				=>				'Recipes',
@@ -79,25 +79,56 @@ function glfr_enqueue_scripts() {
 		) );
 
 		$recipe_posts = $recipe_query->posts;
-		$recipe_tags = array();
 
 		foreach( $recipe_posts as $post ) {
 
-			$tag_array = get_the_tags( $post->ID );
-			array_push( $recipe_tags, $tag_array );
+			$recipe_name = $post->post_title; 
+
+			/*
+			*This filter removes the limit on the excerpt's length.
+			*We will then pass content to js file as a full-length "excerpt."
+			*/
+			add_filter( 'excerpt_length', 'glfr_custom_excerpt_length', 999 );
+			$recipe_content =  get_the_excerpt( $post->ID );
+			/*
+			*Removing filter to return to normal excerpt length.
+			*/
+			remove_filter( 'excerpt_length', 'glfr_custom_excerpt_length', 999 );
+
+			$recipe_excerpt = get_the_excerpt( $post->ID );
+			$recipe_url = $post->guid; 
+			$recipe_author = get_the_author_meta( 'display_name', $post->post_author );
+			$recipe_tags = get_the_tags( $post->ID );
+			$recipe_post_date = $post->post_date;
+			$recipe_img_url = get_the_post_thumbnail( $post->ID );
+
+			$recipe = new Recipe(
+				$recipe_name, $recipe_content, $recipe_excerpt, $recipe_url,
+				$recipe_author, $recipe_tags, $recipe_post_date, $recipe_img_url
+			);
+
+			array_push( $glfr_recipes, $recipe->create_assoc_array() );
 
 		}
 
 		wp_localize_script( 'bootstrap', 'glfr_recipes', array( 
-			'default_query'		=>				$wp_query,
-			'full_query'		=>				$recipe_posts, //$recipe_query_results,		
+			'obj'				=>				$glfr_recipes,
 			'posts_per_page'	=>				$recipe_posts_per_page,
-			'tags'				=>				$recipe_tags,
 			'blog_name'			=>				get_bloginfo( 'name' )
 		 ) );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'glfr_enqueue_scripts' );
+
+/**
+ * Custom Excerpt Length.
+ * Using this to sanitize content to localize in js file for recipe searches.
+*/
+function glfr_custom_excerpt_length( $length ) {
+
+	return 50000;
+
+}
 
 /**
  * Theme Supports

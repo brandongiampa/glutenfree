@@ -6338,7 +6338,6 @@ button.bg-dark:focus {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -6358,9 +6357,8 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -8761,6 +8759,10 @@ footer p {
 #modal-trigger-div {
   bottom: 50px;
   left: 92%;
+  -webkit-animation-name: slideFromBottom;
+          animation-name: slideFromBottom;
+  -webkit-animation-duration: 6s;
+          animation-duration: 6s;
 }
 @media (max-width: 992px) {
   #modal-trigger-div {
@@ -8785,6 +8787,35 @@ footer p {
   list-style-position: inside;
 }
 
+@-webkit-keyframes slideFromBottom {
+  0% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  90% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromBottom {
+  0% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  90% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 button.wpforms-submit {
   background-color: #fdb306 !important;
   color: #fff !important;

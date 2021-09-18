@@ -18,5 +18,5 @@
         class="form-control border-0 bg-light"
         name="s"
     >
-    <button id="recipe-search-button" type="submit" class="btn btn-primary mt-2">Filter</button>
+    <button id="recipe-search-button" type="submit" class="btn btn-primary mt-2" disabled>Filter</button>
 </form>
