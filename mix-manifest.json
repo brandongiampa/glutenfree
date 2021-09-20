@@ -1,5 +1,6 @@
 {
     "/dist/bootstrap.js": "/dist/bootstrap.js",
+    "/dist/recipe.js": "/dist/recipe.js",
     "/gutenberg/blocks.js": "/gutenberg/blocks.js",
     "/dist/bootstrap.css": "/dist/bootstrap.css"
 }

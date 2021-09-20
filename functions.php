@@ -61,12 +61,17 @@ function glfr_enqueue_scripts() {
     wp_enqueue_style( 'googlefonts', 'https://fonts.googleapis.com/css2?family=Bungee&family=Oswald:wght@200;400;500;&display=swap', array() );
     wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.css', array(), '1.0.1' );
     wp_enqueue_style( 'dashicons' );
-	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.js', array(), '1.0.2', true );
+	
+	if ( ! glfr_is_recipe_archive() ) {
+		wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/dist/bootstrap.js', array(), '1.0.2', true );
+	}
 	
 	//add category as javascript obj on recipe archive page for recipe filtering
 	if ( glfr_is_recipe_archive() ) {
 		
 		include_once __DIR__ . "/classes/class-glfr-recipe.php";
+
+		wp_enqueue_script( 'recipe', get_template_directory_uri() . '/dist/bootstrap.js', array(), '1.0.2', true );
 
 		$max_recipe_posts = get_theme_mod( 'max_recipe_posts', 1000 );
 		$recipe_posts_per_page = get_option( 'posts_per_page' );
